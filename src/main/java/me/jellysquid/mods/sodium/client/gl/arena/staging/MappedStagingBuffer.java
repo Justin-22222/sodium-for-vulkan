@@ -48,7 +48,9 @@ public class MappedStagingBuffer implements StagingBuffer {
     }
 
     public static boolean isSupported(RenderDevice instance) {
-        return instance.getDeviceFunctions().getBufferStorageFunctions() != BufferStorageFunctions.NONE;
+//        return instance.getDeviceFunctions().getBufferStorageFunctions() != BufferStorageFunctions.NONE;
+        return true;
+        // fuck yeah everything is supported
     }
 
     @Override

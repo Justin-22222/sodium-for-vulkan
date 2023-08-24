@@ -7,7 +7,7 @@ public abstract class GlBuffer extends GlObject {
     private GlBufferMapping activeMapping;
 
     protected GlBuffer() {
-        this.setHandle(GL20C.glGenBuffers());
+//        this.setHandle(GL20C.glGenBuffers());
     }
 
     public GlBufferMapping getActiveMapping() {

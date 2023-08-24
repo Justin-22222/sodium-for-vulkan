@@ -51,7 +51,8 @@ public class ShaderProgramMixin {
         }
     }
 
-    @Redirect(method = "bind", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/GlUniform;getUniformLocation(ILjava/lang/CharSequence;)I"))
+    // i believe vulkan removes this or something idk it causes mixin error
+    // @Redirect(method = "bind", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/GlUniform;getUniformLocation(ILjava/lang/CharSequence;)I"))
     private int redirectGetUniformLocation(int program, CharSequence name) {
         var location = this.uniformCache.getInt(name);
 

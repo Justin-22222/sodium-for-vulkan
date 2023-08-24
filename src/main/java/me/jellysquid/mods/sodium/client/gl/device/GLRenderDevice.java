@@ -17,7 +17,7 @@ public class GLRenderDevice implements RenderDevice {
     private final CommandList commandList = new ImmediateCommandList(this.stateTracker);
     private final DrawCommandList drawCommandList = new ImmediateDrawCommandList();
 
-    private final DeviceFunctions functions = new DeviceFunctions(this);
+//    private final DeviceFunctions functions = new DeviceFunctions(this);
 
     private boolean isActive;
     private GlTessellation activeTessellation;
@@ -58,7 +58,8 @@ public class GLRenderDevice implements RenderDevice {
 
     @Override
     public DeviceFunctions getDeviceFunctions() {
-        return this.functions;
+//        return this.functions;
+        return null;
     }
 
     private void checkDeviceActive() {
@@ -99,9 +100,10 @@ public class GLRenderDevice implements RenderDevice {
 
         @Override
         public void bindBuffer(GlBufferTarget target, GlBuffer buffer) {
-            if (this.stateTracker.makeBufferActive(target, buffer)) {
+            /* if (this.stateTracker.makeBufferActive(target, buffer)) {
                 GL20C.glBindBuffer(target.getTargetParameter(), buffer.handle());
-            }
+            } */
+            // no
         }
 
         @Override
@@ -127,10 +129,11 @@ public class GLRenderDevice implements RenderDevice {
 
             this.stateTracker.notifyBufferDeleted(buffer);
 
-            int handle = buffer.handle();
+//            int handle = buffer.handle();
             buffer.invalidateHandle();
 
-            GL20C.glDeleteBuffers(handle);
+//            GL20C.glDeleteBuffers(handle);
+            // no :3
         }
 
         @Override
@@ -163,7 +166,7 @@ public class GLRenderDevice implements RenderDevice {
 
         @Override
         public GlBufferMapping mapBuffer(GlBuffer buffer, long offset, long length, EnumBitField<GlBufferMapFlags> flags) {
-            if (buffer.getActiveMapping() != null) {
+            /* if (buffer.getActiveMapping() != null) {
                 throw new IllegalStateException("Buffer is already mapped");
             }
 
@@ -201,11 +204,14 @@ public class GLRenderDevice implements RenderDevice {
             buffer.setActiveMapping(mapping);
 
             return mapping;
+             */
+            return null;
+            // ez (this will cause issues) (ill just fix them later on) (and yes i mean ill just comment stuff out)
         }
 
         @Override
         public void unmap(GlBufferMapping map) {
-            checkMapDisposed(map);
+            /*checkMapDisposed(map);
 
             GlBuffer buffer = map.getBufferObject();
 
@@ -213,7 +219,8 @@ public class GLRenderDevice implements RenderDevice {
             GL32C.glUnmapBuffer(GlBufferTarget.ARRAY_BUFFER.getTargetParameter());
 
             buffer.setActiveMapping(null);
-            map.dispose();
+            map.dispose();*/
+            // dont do anything!!!!
         }
 
         @Override
@@ -232,9 +239,10 @@ public class GLRenderDevice implements RenderDevice {
         }
 
         private void checkMapDisposed(GlBufferMapping map) {
-            if (map.isDisposed()) {
+            /* if (map.isDisposed()) {
                 throw new IllegalStateException("Buffer mapping is already disposed");
-            }
+            } */
+            //no dont
         }
 
         @Override
@@ -247,8 +255,8 @@ public class GLRenderDevice implements RenderDevice {
             GlImmutableBuffer buffer = new GlImmutableBuffer(flags);
 
             this.bindBuffer(GlBufferTarget.ARRAY_BUFFER, buffer);
-            GLRenderDevice.this.functions.getBufferStorageFunctions()
-                    .createBufferStorage(GlBufferTarget.ARRAY_BUFFER, bufferSize, flags);
+//            GLRenderDevice.this.functions.getBufferStorageFunctions()
+//                    .createBufferStorage(GlBufferTarget.ARRAY_BUFFER, bufferSize, flags);
 
             return buffer;
         }

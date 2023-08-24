@@ -2,12 +2,12 @@ package me.jellysquid.mods.sodium.client.util.workarounds;
 
 import me.jellysquid.mods.sodium.client.gui.console.Console;
 import me.jellysquid.mods.sodium.client.gui.console.message.MessageLevel;
-import me.jellysquid.mods.sodium.client.util.workarounds.driver.nvidia.NvidiaGLContextInfo;
+//import me.jellysquid.mods.sodium.client.util.workarounds.driver.nvidia.NvidiaGLContextInfo;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.opengl.GL11C;
+// import org.lwjgl.opengl.GL11C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class PostLaunchChecks {
     }
 
     private static void checkContextImplementation() {
-        GLContextInfo driver = getGraphicsContextInfo();
+        /* GLContextInfo driver = getGraphicsContextInfo();
 
         if (driver == null) {
             LOGGER.warn("Could not retrieve identifying strings for OpenGL implementation");
@@ -42,10 +42,11 @@ public class PostLaunchChecks {
             logMessage("The NVIDIA graphics driver appears to be out of date. This will likely cause severe " +
                     "performance issues and crashes when used with Sodium. The graphics driver should be updated to " +
                     "the latest version (version 536.23 or newer).");
-        }
+        } */
     }
 
-    @Nullable
+    // removed cause this was only used to check for broken gl stuff
+    /* @Nullable
     private static GLContextInfo getGraphicsContextInfo() {
         String vendor = GL11C.glGetString(GL11C.GL_VENDOR);
         String renderer = GL11C.glGetString(GL11C.GL_RENDERER);
@@ -56,7 +57,7 @@ public class PostLaunchChecks {
         }
 
         return new GLContextInfo(vendor, renderer, version);
-    }
+    } */
 
     private static void showConsoleMessage(MutableText message) {
         Console.instance().logMessage(MessageLevel.SEVERE, message, 30.0);
@@ -70,7 +71,8 @@ public class PostLaunchChecks {
     // The way which NVIDIA tries to detect the Minecraft process could not be circumvented until fairly recently
     // So we require that an up-to-date graphics driver is installed so that our workarounds can disable the Threaded
     // Optimizations driver hack.
-    private static boolean isBrokenNvidiaDriverInstalled(GLContextInfo driver) {
+    // removed cause not gl
+    /* private static boolean isBrokenNvidiaDriverInstalled(GLContextInfo driver) {
         // The Linux driver has two separate branches which have overlapping version numbers, despite also having
         // different feature sets. As a result, we can't reliably determine which Linux drivers are broken...
         if (Util.getOperatingSystem() != Util.OperatingSystem.WINDOWS) {
@@ -87,7 +89,7 @@ public class PostLaunchChecks {
         }
 
         return false;
-    }
+    } */
 
     // https://github.com/CaffeineMC/sodium-fabric/issues/1916
     private static boolean isUsingPojavLauncher() {

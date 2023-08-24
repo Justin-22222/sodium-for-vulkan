@@ -63,6 +63,7 @@ public class MinecraftClientMixin {
 
     @Inject(method = "render", at = @At("RETURN"))
     private void postRender(boolean tick, CallbackInfo ci) {
+        /*
         var fence = GL32C.glFenceSync(GL32C.GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
 
         if (fence == 0) {
@@ -70,5 +71,6 @@ public class MinecraftClientMixin {
         }
 
         this.fences.enqueue(fence);
+        */
     }
 }

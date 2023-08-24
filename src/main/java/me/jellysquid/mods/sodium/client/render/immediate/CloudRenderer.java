@@ -139,7 +139,11 @@ public class CloudRenderer {
         RenderSystem.depthMask(true);
         RenderSystem.colorMask(false, false, false, false);
 
-        this.vertexBuffer.draw(modelViewMatrix, projectionMatrix, this.clouds);
+        try {
+            this.vertexBuffer.draw(modelViewMatrix, projectionMatrix, this.clouds);
+        } catch(NullPointerException e) {
+            // TODO [VOLCANIC-SODIUM] clouds might not render
+        }
 
         // PASS 2: Render geometry
         RenderSystem.enableBlend();
@@ -149,14 +153,18 @@ public class CloudRenderer {
         RenderSystem.depthFunc(GL30C.GL_EQUAL);
         RenderSystem.colorMask(true, true, true, true);
 
-        this.vertexBuffer.draw(modelViewMatrix, projectionMatrix, this.clouds);
+        try {
+            this.vertexBuffer.draw(modelViewMatrix, projectionMatrix, this.clouds);
+        } catch(NullPointerException e) {
+            // TODO [VOLCANIC-SODIUM] clouds might not render
+        }
 
         matrices.pop();
 
         VertexBuffer.unbind();
 
         RenderSystem.disableBlend();
-        RenderSystem.depthFunc(GL30C.GL_LEQUAL);
+        RenderSystem.depthFunc(GL30C.GL_LEQUAL); // i feel like this is gonna crash it
 
         RenderSystem.enableCull();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -324,7 +332,8 @@ public class CloudRenderer {
         this.edges = createCloudEdges();
 
         if (this.clouds != null) {
-            this.clouds.close();
+//            this.clouds.close();
+            //TODO make better
         }
 
         try {

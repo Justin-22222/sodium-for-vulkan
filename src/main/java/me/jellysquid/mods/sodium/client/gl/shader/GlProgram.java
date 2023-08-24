@@ -80,11 +80,11 @@ public class GlProgram<T> extends GlObject implements ShaderBindingContext {
 
         public Builder(Identifier name) {
             this.name = name;
-            this.program = GL20C.glCreateProgram();
+            this.program = 0; // ez
         }
 
         public Builder attachShader(GlShader shader) {
-            GL20C.glAttachShader(this.program, shader.handle());
+//            GL20C.glAttachShader(this.program, shader.handle());
 
             return this;
         }
